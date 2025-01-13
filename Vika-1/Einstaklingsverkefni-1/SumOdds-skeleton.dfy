@@ -31,13 +31,11 @@ function SumOdds( n: int ): int
 // 1+3+5+...+(2*n-1) == n^2
 
 lemma ProveSumOdds( n: int )
-    // Put requires and ensures clauses here that
-    // ensure that the formula to prove is true.
-    ...
+    requires n >= 0
 {
     // Put a body here that suffices to convince
     // Dafny that the lemma is true.
-    ...
+    //...
 }
 
 method ComputeSumOddsLoop( n: int ) returns (s: int)
@@ -50,7 +48,6 @@ method ComputeSumOddsLoop( n: int ) returns (s: int)
     // in 1+3+5+...+(2*n-1) from left to right.
     // Recursion is not allowed and you may
     // not call ComputeSumOddsRecursive.
-    ...
 }
 
 method ComputeSumOddsRecursive( n: int ) returns (s: int)
@@ -62,7 +59,7 @@ method ComputeSumOddsRecursive( n: int ) returns (s: int)
     // recursively from left to right.
     // Looping is not allowed and you may not
     // call ComputeSumOddsLoop.
-    ...
+    //...
 }
 
 // If SumOdds is correct then this lemma will work.
