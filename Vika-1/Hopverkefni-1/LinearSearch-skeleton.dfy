@@ -1,7 +1,7 @@
 // Author of question: Snorri Agnarsson
 // Permalink of question: https://tinyurl.com/mssdpfvr
 
-// Author of solution:    ...
+// Author of solution:    Andri Fannar Kristjánsson
 // Permalink of solution: ...
 
 // Use the command
@@ -34,7 +34,19 @@ method SearchRecursive( a: seq<int>, i: int, j: int, x: int ) returns (k: int)
     // but recursion should be used, and it
     // is not allowed to call the function
     // SearchLoop below.
-    ...
+    if i == j
+    {
+        return -1;
+
+    }
+    else if a[i] == x
+    {
+        return i;
+    }
+    else
+    {
+        return SearchRecursive(a, i+1, j, x);
+    }
 }
 
 method SearchLoop( a: seq<int>, i: int, j: int, x: int ) returns (k: int)
