@@ -45,7 +45,8 @@ method SearchRecursive( a: seq<int>, i: int, j: int, x: int ) returns (k: int)
     }
     else
     {
-        return SearchRecursive(a, i+1, j, x);
+        k := SearchRecursive(a, i+1, j, x);
+        return k;
     }
 }
 
@@ -61,8 +62,18 @@ method SearchLoop( a: seq<int>, i: int, j: int, x: int ) returns (k: int)
     // In this function recursion is not allowed
     // and it is not allowed to call the function
     // SearchRecursive above.
-    ...
-    
+    while i < j
+        decreases j-i
+        invariant 0 <= i <= j <= |a|
+        invariant forall r | i <= r < j :: a[r] != x
+    {
+        if a[i] == x
+        {
+            return i;
+        }
+        i := i+1;
+    }
+    return -1;
     // Fastayrðing lykkju:
     //    a: | ??? | allt !=x |
     //        i     p          j
