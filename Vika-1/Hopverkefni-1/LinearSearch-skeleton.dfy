@@ -36,18 +36,18 @@ method SearchRecursive( a: seq<int>, i: int, j: int, x: int ) returns (k: int)
   // SearchLoop below.
   if i == j
   {
-    return -1;
-
+    k := -1;
   }
-  else if a[j] == x
+  else if a[j-1] == x
   {
-    return j;
+    k := j-1;
   }
   else
   {
     k := SearchRecursive(a, i, j-1, x);
-    return k;
   }
+
+  return;
 }
 
 method SearchLoop( a: seq<int>, i: int, j: int, x: int ) returns (k: int)
