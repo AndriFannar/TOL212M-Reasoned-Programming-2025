@@ -5,14 +5,14 @@ public class BinarySearchJava {
     // Eftir: i <= k <= j,
     // öll gildi í a[i..k-1] eru >=x,
     // öll gildi í a[k..j-1] eru <x.
-    static int searchRecursive( double[] a, int i, int j, double x )
-    {
-        if( i == j ) return ?A?;
-        int m = ?B?;
-        if( a[m] ?C? x )
-            return searchRecursive(a,i,?D?,x);
+    static int searchRecursive(double[] a, int i, int j, double x) {
+        if (i == j)
+            return i; // ?A?;
+        int m = i + (j - i) / 2; // ?B?;
+        if (a[m] < x)// ?C? x )
+            return searchRecursive(a, i, m, x);// ?D?,x);
         else
-            return searchRecursive(a,?E?,j,x);
+            return searchRecursive(a, m + 1, j, x);// ?E?,j,x);
     }
 
     // Notkun: int k = searchLoop(a,i,j,x);
@@ -20,20 +20,19 @@ public class BinarySearchJava {
     // Eftir: i <= k <= j,
     // öll gildi í a[i..k-1] eru >=x,
     // öll gildi í a[k..j-1] eru <x.
-    static int searchLoop( double[] a, int i, int j, double x )
-    {
-        int p = ?F?;
-        int q = ?G?;
-        while( ?H? )
-            // Loop invariant:
-            //    ?I?
+    static int searchLoop(double[] a, int i, int j, double x) {
+        int p = i;// ?F?;
+        int q = j;// ?G?;
+        while (i < j)// ?H? )
+        // Loop invariant:
+        // a[i..p-1] >= x > a[q..j-1] ?I?
         {
-            int m = ?J?;
-            if( a[m] ?K? x )
-                p = ?L?;
+            int m = p + (q - p) / 2;// ?J?;
+            if (a[m] >= x)// ?K? x )
+                p = m + 1; // ?L?;
             else
-                q = ?M?;
+                q = m;// ?M?;
         }
-        return ?N?;
+        return p;// ?N?;
     }
 }
