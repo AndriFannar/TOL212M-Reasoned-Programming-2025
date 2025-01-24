@@ -2,7 +2,7 @@
 // Permalink of question: https://tinyurl.com/3xz4kd2p
 
 // Authors of solution:   Andri Fannar Kristjánsson
-// Permalink of solution: ...
+// Permalink of solution: https://shorturl.at/510wF
 // Use the command
 //   dafny build H2-skeleton.dfy
 // to compile the file.
