@@ -1,6 +1,6 @@
 // Höfundur spurningar:  Snorri Agnarsson, snorri@hi.is
 
-// Höfundur lausnar:     ...
+// Höfundur lausnar:     Andri Fannar Kristjánsson, afk6@hi.is
 // Permalink lausnar:    ...
 
 // Insertion sort með hjálp helmingunarleitar.
@@ -22,8 +22,13 @@ method Search( s: seq<int>, x: int ) returns ( k: int )
   //     ^      ^      ^
   //     0      k     |s|
 {
+  // Base case, return 0 if s is empty.
   if s == [] { k := 0; return; }
+
+  // Caclulate center index.
   var i := |s|/2;
+
+  // Split based on value of s[i].
   if s[i] <= x
   {
     k := Search(s[i+1..], x);
@@ -65,9 +70,15 @@ method Sort( m: multiset<int> ) returns ( r: seq<int> )
     //    rest := rest-multiset{x};
     // and use Search to find the correct place
     // to insert [x] into r.
+
+    // Remove variable from bag.
     var x :| x in rest;
     rest := rest-multiset{x};
+
+    // Find the correct place to insert x and insert.
     var k := Search(r, x);
     r := r[..k]+[x]+r[k..];
   }
+
+  return;
 }
