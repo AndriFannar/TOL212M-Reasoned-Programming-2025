@@ -23,7 +23,7 @@ public class BinarySearchJava {
     static int searchLoop(double[] a, int i, int j, double x) {
         int p = i;// ?F?;
         int q = j;// ?G?;
-        while (i < j)// ?H? )
+        while (p != q)// ?H? )
         // Loop invariant:
         // a[i..p-1] >= x > a[q..j-1] ?I?
         {
