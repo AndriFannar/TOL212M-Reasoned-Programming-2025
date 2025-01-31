@@ -1,7 +1,7 @@
 // Höfundur spurningar:  Snorri Agnarsson, snorri@hi.is
 
-// Höfundur lausnar:     ...
-// Permalink lausnar:    ...
+// Höfundur lausnar:     Andri Fannar Kristjánsson, afk6@hi.is
+// Permalink lausnar:    https://shorturl.at/1iWI2
 
 ///////////////////////////////////////////////////////////////
 // Hér byrjar óbreytanlegi hluti skrárinnar.
@@ -89,6 +89,8 @@ method Sort( m: multiset<int> ) returns ( s: seq<int> )
   {
     // Setjið viðeigandi stofn í lykkjuna hér
     // Put an appropriate body of the loop here
+
+    // Find the minimum value in the multiset, remove it and add it to the sequence.
     var x := MinOfMultiset(m');
     m' := m'-multiset{x};
     s := s + [x];

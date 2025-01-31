@@ -1,7 +1,7 @@
 // Höfundur spurningar:  Snorri Agnarsson, snorri@hi.is
 
 // Höfundur lausnar:     Andri Fannar Kristjánsson, afk6@hi.is
-// Permalink lausnar:    ...
+// Permalink lausnar:    https://shorturl.at/fKfzr
 
 // Insertion sort með hjálp helmingunarleitar.
 // Insertion sort with the help of binary search.
