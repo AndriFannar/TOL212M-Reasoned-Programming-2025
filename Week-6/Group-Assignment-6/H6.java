@@ -31,28 +31,38 @@ public class H6
     }
     
     // Notkun: int x = H6.maxInBST(t);
-    // Fyrir:  ?1?
-    // Eftir:  ?2?
+    // Fyrir:  t er tvíleitartré.
+    // Eftir:  x er stærsta gildi í t,
+    //         þ.e. gildið í hnút sem er lengst til hægri í t,
+    //         eða null ef t er tómt.
 
     // Usage:  int x = H6.maxInBST(t);
-    // Pre:    ?1?
-    // Post:   ?2?
+    // Pre:    t is a binary search tree.
+    // Post:   x is the largest value in t,
+    //         i.e. the value in the node that is farthest to the right in t,
+    //         or null if t is empty.
     public static int maxInBST( BSTNode t )
     {
         while( BSTNode.right(t) != null )
-            // Fastayrðing lykkju: ?3?
-            // Loop invariant: ?3?
+            // Fastayrðing lykkju: t er ekki tómt og hæsta gildið í upprunalega trénu
+            //                     er í hluttrénu með rótina t.
+            // Loop invariant:     t is not empty and the maximum value
+            //                     of the original tree is in the subtree rooted at t.
             t = BSTNode.right(t);
         return BSTNode.rootValue(t);
     }
     
-    // Notkun: ?4?
-    // Fyrir:  ?5?
-    // Eftir:  ?6?
+    // Notkun: BSTNode s = H6.deleteBST(t,x);
+    // Fyrir:  t er tvíleitartré, x er heiltala.
+    // Eftir:  s er nýtt tvíleitartré sem inniheldur hnúta sem
+    //         hafa sömu gildi og hnútarnir í t nema hnút með gildið x.
+    //         Ef x er ekki í t er s eins og t.
 
-    // Usage:  ?4?
-    // Pre:    ?5?
-    // Post:   ?6?
+    // Usage:  BSTNode s = H6.deleteBST(t,x);
+    // Pre:    t is a binary search tree, x is an int.
+    // Post:   s is a new binary search tree that contains nodes
+    //         which have the same values as t except the node with value x.
+    //         If x is not in t, then s is identical to t.
     public static BSTNode deleteBST( BSTNode t, int x )
     {
         if( t == null ) return null;
@@ -82,12 +92,20 @@ public class H6
         BSTNode t = null;
         int i = 0;
         while( i != a.length )
-            // Fastayrðing lykkju: ?7?
-            // Loop invariant: ?7?
+            // Fastayrðing lykkju: 0 <= i <= a.length.
+            //                     t er tvíleitartré sem inniheldur a[0],a[1],...,a[i-1].
+            // Loop invariant:     0 <= i < a.length.
+            //                     t is a binary search tree that contains a[0],a[1],...,a[i-1].
             t = insertBST(t,a[i++]);
         while( i != 0 )
-            // Fastayrðing lykkju: ?8?
-            // Loop invariant: ?8?
+            // Fastayrðing lykkju: 0 <= i <= a.length.
+            //                     a[i],a[i+1],...,a[a.length-1] eru í vaxandi röð.
+            //                     t er tvíleitartré sem inniheldur a[0],a[1],...,a[i-1]
+            //                     sem hafa ekki enn verið sett inn í a.
+            // Loop invariant:     0 < i < a.length.
+            //                     a[i],a[i+1],...,a[a.length-1] is in ascending order.
+            //                     t is a binary search tree that contains a[0],a[1],...,a[i-1]
+            //                     which have not yet been placed in a.
         {
             a[--i] = maxInBST(t);
             t = deleteBST(t,a[i]);
