@@ -1,4 +1,5 @@
-// Höfundur/Author: Snorri Agnarsson, snorri@hi.is
+// Höfundur/Author:    Snorri Agnarsson, snorri@hi.is
+// Author of solution: Andri Fannar Kristjánsson, afk6@hi.is
 
 public class H6
 {

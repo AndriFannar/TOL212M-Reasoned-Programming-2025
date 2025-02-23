@@ -1,3 +1,5 @@
+// Author of solution: Andri Fannar Kristjánsson, afk6@hi.is
+
 // Vistið þessa skrá með nafninu E6.java og klárið að
 // forrita föllin searchRecursive, searchLoop og
 // searchTailRecursive.  Þið skuluð líka þýða og keyra
