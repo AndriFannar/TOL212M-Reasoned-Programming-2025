@@ -32,13 +32,13 @@ public class H6
     }
     
     // Notkun: int x = H6.maxInBST(t);
-    // Fyrir:  t er tvíleitartré.
+    // Fyrir:  t er ekki tómt tvíleitartré.
     // Eftir:  x er stærsta gildi í t,
     //         þ.e. gildið í hnút sem er lengst til hægri í t,
     //         eða null ef t er tómt.
 
     // Usage:  int x = H6.maxInBST(t);
-    // Pre:    t is a binary search tree.
+    // Pre:    t is a non-empty binary search tree.
     // Post:   x is the largest value in t,
     //         i.e. the value in the node that is farthest to the right in t,
     //         or null if t is empty.
