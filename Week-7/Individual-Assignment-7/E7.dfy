@@ -1,7 +1,7 @@
 // Author of question:  Snorri Agnarsson, snorri@hi.is
 
 // Author of solution:       Andri Fannar Kristjánsson, afk6@hi.is
-// Permalink of solution:    ...
+// Permalink of solution:    https://tinyurl.com/4y5m4cs4
 
 // Klárið að forrita klasann IntStackChain.
 

@@ -1,7 +1,7 @@
 // Author of question:  Snorri Agnarsson, snorri@hi.is
 
 // Author of solution:       Andri Fannar Kristjánsson, afk6@hi.is
-// Permalink of solution:
+// Permalink of solution:    https://tinyurl.com/3prs3fcn
 
 // Klárið að forrita klasann IntStackArray.
 
@@ -56,10 +56,7 @@ class IntStackArray extends IntStack
     0 <= size <= a.Length &&
     1 <= a.Length &&
     |ghostseq| == size &&
-    if size <= a.Length then
-      ghostseq == a[..size]
-    else
-      ghostseq == a[..]+a[..size-a.Length]
+    ghostseq == a[..size]
   }
 
   constructor()
@@ -109,14 +106,7 @@ class IntStackArray extends IntStack
       a := newa;
       Repr := {this,a};
     }
-    if size >= a.Length
-    {
-      a[size-a.Length] := x;
-    }
-    else
-    {
-      a[size] := x;
-    }
+    a[size] := x;
     size := size+1;
     ghostseq := ghostseq+[x];
     assert Valid();
