@@ -25,7 +25,7 @@ public class E9 {
         }
 
         // Usage: int h = link.head();
-        // Pre: link refers to an E9.Link object.
+        // Pre: link refers to an E9.Li nk object.
         // Post: h contains the head of link.
         public int head() {
             return head;
