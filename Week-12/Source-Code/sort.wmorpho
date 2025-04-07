@@ -1,0 +1,256 @@
+;;; Author: Snorri Agnarsson, snorri@hi.is
+
+;;; Keyra má þetta forrit af skipanalínunni með skipuninni
+;;;    java -jar morpho.jar -s sort.wmorpho
+
+rec fun split(x,r)
+{
+	var y,z,tmp;
+	for(;;)
+	{
+		if( !x ) {break []};
+		tmp = tail(x);
+		setTail(x,y);
+		y = x;
+		x = tmp;
+		if( !x ) {break []};
+		tmp = tail(x);
+		setTail(x,z);
+		z = x;
+		x = tmp;
+	};
+	r[0] = y;
+	r[1] = z;
+};
+
+rec fun merge(x,y)
+{
+	var z,w;
+	if( head(x) < head(y) )
+	{
+		z = x;
+		w = z;
+		x = tail(x);
+	}
+	else
+	{
+		z = y;
+		w = z;
+		y = tail(y);
+	};
+	while( x && y )
+	{
+		if( head(x) < head(y) )
+		{
+			setTail(w,x);
+			w = x;
+			x = tail(x);
+		}
+		else
+		{
+			setTail(w,y);
+			w = y;
+			y = tail(y);
+		};
+	};
+	setTail(w,x || y);
+	z
+};
+
+rec fun mergeSort(x,r)
+{
+	if( !x || !tail(x) ) {return x};
+	split(x,r);
+	var y = r[0], z = r[1];
+	y = mergeSort(y,r);
+	z = mergeSort(z,r);
+	merge(y,z)
+};
+
+rec fun mergeSort(x)
+{
+	mergeSort(x,\([],[]))
+};
+
+rec fun parallelMergeSort(x,d)
+{
+	if( !x || !tail(x) ) {return x};
+	var r = \([],[]);
+	split(x,r);
+	var y = r[0], z = r[1];
+	if( d > 5 )
+	{
+		y = mergeSort(y,r);
+		z = mergeSort(z,r);
+		merge(y,z)
+	}
+	else
+	{
+		var c = makeChannel();
+		go { y = parallelMergeSort(y,d+1); c <- "Done" };
+		z = parallelMergeSort(z,d+1);
+		<- c;
+		merge(y,z)
+	}
+};
+
+rec fun parallelMergeSort(x)
+{
+	parallelMergeSort(x,0);
+};
+
+rec fun makeChain(a,i,j)
+{
+	var res = [];
+	while( i < j )
+	{
+		res = j : res;
+		j = dec(j);
+	};
+	res
+};
+
+rec fun randomList(n)
+{
+	var x;
+	for( var i=0 ; i!=n ; i=inc(i) )
+	{
+		x = random(1000) : x;
+	};
+	x
+};
+
+writeln(mergeSort(randomList(100)));
+
+rec fun measureSerial(n)
+{
+	var x = randomList(n);
+	var start = nanoTime();
+	mergeSort(x);
+	writeln(n++": "++(double(nanoTime()-start)*1.0e-9)++" seconds");
+};
+
+rec fun measureParallel(n)
+{
+	var x = randomList(n);
+	var start = nanoTime();
+	parallelMergeSort(x);
+	writeln(n++": "++(double(nanoTime()-start)*1.0e-9)++" seconds");
+};
+
+writeln("Serial mergesort");
+measureSerial(100);
+measureSerial(1000);
+measureSerial(10000);
+measureSerial(100000);
+measureSerial(1000000);
+writeln("Parallel mergesort");
+measureParallel(100);
+measureParallel(1000);
+measureParallel(10000);
+measureParallel(100000);
+measureParallel(1000000);
+;;;measureParallel(10000000);
+;;;measureParallel(100000000);
+
+rec fun insert(x,y)
+{
+	if( x == [] || head(y) <= head(x) )
+	{
+		setTail(y,x);
+		return y;
+	};
+	var z = x;
+	while( tail(z) && head(tail(z)) < head(y) )
+	{
+		z = tail(z);
+	};
+	setTail(y,tail(z));
+	setTail(z,y);
+	x
+};
+
+rec fun insertionSort(x)
+{
+	var z = [];
+	while( x )
+	{
+		var tmp = tail(x);
+		z = insert(z,x);
+		x = tmp;
+	};
+	z
+};
+
+rec fun removeMin(x,r)
+{
+	var min = x;
+	var discarded = [];
+	var rest = tail(x);
+	while( rest )
+	{
+		if( head(rest) < head(min) )
+		{
+			setTail(min,discarded);
+			min = rest;
+			rest = tail(rest);
+		}
+		else
+		{
+			var tmp = tail(rest);
+			setTail(rest,discarded);
+			discarded = rest;
+			rest = tmp;
+		}
+	};
+	r[0] = min;
+	r[1] = discarded;
+};
+
+rec fun selectionSort(x)
+{
+	if( !x || !tail(x) ) { return x };
+	var r = \([],[]);
+	removeMin(x,r);
+	var rest = r[1];
+	var z = r[0];
+	var w = z;
+	while( rest )
+	{
+		removeMin(rest,r);
+		rest = r[1];
+		setTail(w,r[0]);
+		w = tail(w);
+	};
+	setTail(w,[]);
+	z
+};
+
+rec fun measureInsertionSort(n)
+{
+	var x = randomList(n);
+	var start = nanoTime();
+	insertionSort(x);
+	writeln(n++": "++(double(nanoTime()-start)*1.0e-9)++" seconds");
+};
+
+rec fun measureSelectionSort(n)
+{
+	var x = randomList(n);
+	var start = nanoTime();
+	selectionSort(x);
+	writeln(n++": "++(double(nanoTime()-start)*1.0e-9)++" seconds");
+};
+
+writeln("Selectionsort:");
+measureSelectionSort(100);
+measureSelectionSort(1000);
+measureSelectionSort(10000);
+;;;measureSelectionSort(100000);
+
+writeln("Insertionsort:");
+measureInsertionSort(100);
+measureInsertionSort(1000);
+measureInsertionSort(10000);
+;;;measureInsertionSort(20000);
+;;;measureInsertionSort(30000);
