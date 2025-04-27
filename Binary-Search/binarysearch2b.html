@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a, u {
+    text-decoration: none;
+}
+</style>
+</head>
+<body>
+
+<h2>Binary Search 2b (loop)</h2>
+// Usage:<br>
+// &nbsp;&nbsp;int k = search(a,i,j,x);<br>
+// Precondition:<br>
+// &nbsp;&nbsp;&nbsp;&nbsp;i &le; j,<br>
+// &nbsp;&nbsp;&nbsp;&nbsp;a[i..j-1] is an area in the array a,<br>
+// &nbsp;&nbsp;&nbsp;&nbsp;a[i..j-1] is in descending order,<br>
+// Postcondition:<br>
+// &nbsp;&nbsp;&nbsp;&nbsp;a is unchanged,<br>
+// &nbsp;&nbsp;&nbsp;&nbsp;i &le; k &le; j,<br>
+// &nbsp;&nbsp;&nbsp;&nbsp;a[i..k-1] &gt; x &ge; a[k..j-1].<br>
+public static int search( double[] a, int i, int j, double x )<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int p = <a style="color:red" id="opt1">???</a>, q = <a style="color:red" id="opt2">???</a>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;while( <a style="color:red" id="opt3">???</a> )<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// a[i..p-1] &gt; x &ge; a[q..j-1]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int m = <a style="color:red" id="opt4">???</a>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if( a[m] <a style="color:red" id="opt5">???</a> x )<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p = <a style="color:red" id="opt6">???</a>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;q = <a style="color:red" id="opt7">???</a>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return <a style="color:red" id="opt8">???</a>;<br>
+}
+<br><br>
+<button onclick="validate()">Validate</button>
+<p id="validationResults"></p>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p id="genericselect"></p>
+  </div>
+
+</div>
+
+<script>
+var modal = document.getElementById("myModal");
+
+function registerOption(optname,title,options,correct)
+{
+	var opt = document.getElementById(optname);
+	opt.change =
+		function()
+		{
+			var elem = document.getElementById("theOption");
+			opt.innerHTML = elem.options[elem.selectedIndex].text;
+			opt.validation = elem.value;
+		}
+
+	var inner = title;
+	inner += "<select id=\"theOption\" onchange=\""+optname+".change()\">";
+	var i;
+	for( i=0 ; i!=options.length ; i++ )
+	{
+		inner += "<option value=\"";
+		inner += options[i]==correct ? "CORRECT" : "INCORRECT";
+		inner += "\">";
+		inner += options[i];
+		inner += "</option>";
+	}
+	inner += "</select>";
+					
+	opt.onclick =
+		function()
+		{
+			document.getElementById("genericselect").innerHTML = inner;
+			modal.style.display = "block";
+		}
+}
+registerOption("opt1","Select initialization of p: ",["???","i","j","i+1","j-1"],"i");
+registerOption("opt2","Select initialization of q: ",["???","i","j","i+1","j-1"],"j");
+registerOption("opt3","Select loop condition: ",["???","i!=j","i!=p","p!=q","q!=j"],"p!=q");
+registerOption("opt4","Select computation of middle: ",["???","j-i/2","q-p/2","(i+j)/2","p+(q-p)/2","i+(j-i)/2","p+q/2"],"p+(q-p)/2");
+registerOption("opt5","Select comparison: ",["???","&gt;","&gt;=","==","!=","&lt;","&lt;="],"&gt;");
+registerOption("opt6","Select new p value: ",["???","m","m+1","m-1"],"m+1");
+registerOption("opt7","Select new q value: ",["???","m","m+1","m-1"],"m");
+registerOption("opt8","Select return value: ",["???","p-1","p","p+1","i-1","i","i+1"],"p");
+
+
+function validate()
+{
+	var count = 0;
+	if( document.getElementById("opt1").validation != "CORRECT" ) count++;
+	if( document.getElementById("opt2").validation != "CORRECT" ) count++;
+	if( document.getElementById("opt3").validation != "CORRECT" ) count++;
+	if( document.getElementById("opt4").validation != "CORRECT" ) count++;
+	if( document.getElementById("opt5").validation != "CORRECT" ) count++;
+	if( document.getElementById("opt6").validation != "CORRECT" ) count++;
+	if( document.getElementById("opt7").validation != "CORRECT" ) count++;
+	if( document.getElementById("opt8").validation != "CORRECT" ) count++;
+	if( count==0 )
+		document.getElementById("validationResults").innerHTML =
+			"Congratulations, your solution is correct. Good job.";
+	else if( count==1 )
+		document.getElementById("validationResults").innerHTML =
+			"Sorry, your solution is incorrect. There is one error." ;
+	else
+		document.getElementById("validationResults").innerHTML =
+			"Sorry, your solution is incorrect. There is more than one error." ;
+}
+
+var span = document.getElementsByClassName("close")[0];
+
+span.onclick =
+	function()
+	{
+		modal.style.display = "none";
+	}
+
+window.onclick =
+	function(event)
+	{
+		if( event.target == modal ) modal.style.display = "none";
+	}
+</script>
+
+</body>
