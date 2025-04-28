@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a, u {
+    text-decoration: none;
+}
+</style>
+</head>
+<body>
+
+<h2>Binary Search 1a (recursive)</h2>
+// Usage:<br>
+// &nbsp;&nbsp;int k = search(a,i,j,x);<br>
+// Precondition:<br>
+// &nbsp;&nbsp;&nbsp;&nbsp;i &le; j,<br>
+// &nbsp;&nbsp;&nbsp;&nbsp;a[i..j-1] is an area in the array a,<br>
+// &nbsp;&nbsp;&nbsp;&nbsp;a[i..j-1] is in ascending order,<br>
+// Postcondition:<br>
+// &nbsp;&nbsp;&nbsp;&nbsp;a is unchanged,<br>
+// &nbsp;&nbsp;&nbsp;&nbsp;i &le; k &le; j,<br>
+// &nbsp;&nbsp;&nbsp;&nbsp;a[i..k-1] &lt; x &le; a[k..j-1].<br>
+public static int search( double[] a, int i, int j, double x )<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if( <a style="color:red" id="opt1">???</a> ) return <a style="color:red" id="opt2">???</a>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int m = <a style="color:red" id="opt3">???</a>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if( a[m] <a style="color:red" id="opt4">???</a> x )<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return search(a,i,<a style="color:red" id="opt5">???</a>,x);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return search(a,<a style="color:red" id="opt6">???</a>,j,x);<br>
+}
+<br><br>
+<button onclick="validate()">Validate</button>
+<p id="validationResults"></p>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p id="genericselect"></p>
+  </div>
+
+</div>
+
+<script>
+var modal = document.getElementById("myModal");
+
+function registerOption(optname,title,options,correct)
+{
+	var opt = document.getElementById(optname);
+	opt.change =
+		function()
+		{
+			var elem = document.getElementById("theNameOfResultingOptionxyzzy");
+			opt.innerHTML = elem.options[elem.selectedIndex].text;
+			opt.validation = elem.value;
+		}
+
+	var inner = title;
+	inner += "<select id=\"theNameOfResultingOptionxyzzy\" onchange=\""+optname+".change()\">";
+	var i;
+	for( i=0 ; i!=options.length ; i++ )
+	{
+		inner += "<option value=\"";
+		inner += options[i]==correct ? "CORRECT" : "INCORRECT";
+		inner += "\">";
+		inner += options[i];
+		inner += "</option>";
+	}
+	inner += "</select>";
+					
+	opt.onclick = function() {
+		document.getElementById("genericselect").innerHTML = inner;
+		modal.style.display = "block";
+	}
+}
+registerOption("opt1","Select termination condition: ",["???","i&gt;i","i&gt;=j","i==j","i!=j","i&lt;j","i&lt;=j"],"i==j");
+registerOption("opt2","Select return value: ",["???","i","j-i","i-j","i+j"],"i");
+registerOption("opt3","Select computation of middle: ",["???","j-i/2","(i+j)/2","i+(j-i)/2","i+j/2"],"i+(j-i)/2");
+registerOption("opt4","Select comparison: ",["???","&gt;","&gt;=","==","!=","&lt;","&lt;="],"&gt;=");
+registerOption("opt5","Select upper search bound: ",["???","m","m+1","m-1"],"m");
+registerOption("opt6","Select lower search bound: ",["???","m","m+1","m-1"],"m+1");
+
+var validate =
+	function()
+	{
+		var count = 0;
+		if( document.getElementById("opt1").validation != "CORRECT" ) count++;
+		if( document.getElementById("opt2").validation != "CORRECT" ) count++;
+		if( document.getElementById("opt3").validation != "CORRECT" ) count++;
+		if( document.getElementById("opt4").validation != "CORRECT" ) count++;
+		if( document.getElementById("opt5").validation != "CORRECT" ) count++;
+		if( document.getElementById("opt6").validation != "CORRECT" ) count++;
+		if( count==0 )
+			document.getElementById("validationResults").innerHTML = "Congratulations, your solution is correct. Good job.";
+		else if( count==1 )
+			document.getElementById("validationResults").innerHTML = "Sorry, your solution is incorrect. There is one error." ;
+		else
+			document.getElementById("validationResults").innerHTML = "Sorry, your solution is incorrect. There is more than one error." ;
+	}
+
+var span = document.getElementsByClassName("close")[0];
+span.onclick = function() {modal.style.display = "none";}
+window.onclick = function(event) {if (event.target == modal) modal.style.display = "none";}
+</script>
+
+</body>
